@@ -1,0 +1,142 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<div class="d-sm-flex flex-row justify-content-center">
+    <div class="d-sm-flex flex-column col-sm-3 me-5 mt-4 mb-5">
+        <p>
+            Dashboard created using Django and <a href="https://htmx.org/">htmx</a>. Data sourced and processed using the <a href="https://developer.octopus.energy/docs/api/">Octopus API</a>, PostgreSQL, and the Pandas and <a href="https://www.pola.rs/">Polars</a> libraries. Dashboard deployed using Docker and Azure App Service.
+        </p>
+        <p>
+            Source code can be <a href="https://github.com/willdurant/Durantosaur">found here</a>.
+        </p>
+        <p>
+            Use the dropdowns to change the unit of time in the charts (days, weeks, months, or years).
+        </p>
+    </div>
+    <div class="d-sm-flex flex-column col-sm-5 me-5 mt-4 mb-5">
+        <div class="card pb-2">
+            <div class="card-header">
+                Energy costs this month
+            </div>
+            <h5 class="card-title ps-2 pt-2">Total</h5>
+            <div class="px-2">
+                <div class="progress">
+                    <div id="pball" class="progress-bar bg-success" role="progressbar" style="width: 100%">£{{month_total}}</div>
+                </div>
+            </div>
+            <h5 class="card-title ps-2 pt-2">Electricity</h5>
+            <div class="px-2">
+                <div class="progress">
+                    <div id="pbelec" class="progress-bar bg-danger" role="progressbar" style="width: {{month_elec_pc}}%">£{{month_elec}}</div>
+                </div>
+            </div>
+            <h5 class="card-title ps-2 pt-2">Gas</h5>
+            <div class="px-2">
+                <div class="progress">
+                    <div id="pbgas" class="progress-bar bg-info" role="progressbar" style="width: {{month_gas_pc}}%">£{{month_gas}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-sm-flex flex-row justify-content-center mb-3">
+    <h2>Electricity</h2>
+</div>
+<div class="d-sm-flex flex-row justify-content-center">
+    <div class="d-sm-flex flex-column me-4 mb-5">
+        <div class="d-sm-flex flex-row">
+            <form>
+                <select id="select-period"
+                        class="custom-select bg-dark text-white"
+                        name="e-con-period"
+                        autocomplete="off"
+                        hx-get="{% url 'index' %}"
+                        hx-target="#e-con-bar">
+
+                    {% for option in period_options %}
+                        <option value="{{option}}">{{option|capfirst}}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+        <div class="d-sm-flex flex-row">
+            <div id="e-con-bar">
+                {% include 'partials/bar-e-con.html' %}
+            </div>
+        </div>
+    </div>
+    <div class="d-sm-flex flex-column mb-5">
+        <div class="d-sm-flex flex-row">
+            <form>
+                <select id="select-period2"
+                        class="custom-select bg-dark text-white"
+                        name="e-cost-period"
+                        autocomplete="off"
+                        hx-get="{% url 'index' %}"
+                        hx-target="#e-cost-bar">
+
+                    {% for option in period_options %}
+                        <option value="{{option}}">{{option|capfirst}}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+        <div class="d-sm-flex flex-row">
+            <div id="e-cost-bar">
+                {% include 'partials/bar-e-cost.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-sm-flex flex-row justify-content-center mb-3">
+    <h2>Gas</h2>
+</div>
+<div class="d-sm-flex flex-row justify-content-center">
+    <div class="d-sm-flex flex-column me-4 mb-5">
+        <div class="d-sm-flex flex-row">
+            <form>
+                <select id="select-period3"
+                        class="custom-select bg-dark text-white"
+                        name="g-con-period"
+                        autocomplete="off"
+                        hx-get="{% url 'index' %}"
+                        hx-target="#g-con-bar">
+    
+                    {% for option in period_options %}
+                        <option value="{{option}}">{{option|capfirst}}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+        <div class="d-sm-flex flex-row">
+            <div id="g-con-bar">
+                {% include 'partials/bar-g-con.html' %}
+            </div>
+        </div>
+    </div>
+    <div class="d-sm-flex flex-column mb-5">
+        <div class="d-sm-flex flex-row">
+            <form>
+                <select id="select-period4"
+                        class="custom-select bg-dark text-white"
+                        name="g-cost-period"
+                        autocomplete="off"
+                        hx-get="{% url 'index' %}"
+                        hx-target="#g-cost-bar">
+    
+                    {% for option in period_options %}
+                        <option value="{{option}}">{{option|capfirst}}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+        <div class="d-sm-flex flex-row">
+            <div id="g-cost-bar">
+                {% include 'partials/bar-g-cost.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

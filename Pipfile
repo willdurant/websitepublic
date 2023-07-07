@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+django-apscheduler = "*"
+psycopg2 = "*"
+django-extensions = "*"
+django-htmx = "*"
+bokeh = "*"
+
+[dev-packages]
+ipykernel = "*"
+black = "*"
+
+[requires]
+python_version = "3.11"

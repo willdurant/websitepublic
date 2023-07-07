@@ -1,0 +1,29 @@
+<div hx-target="this"
+     hx-get="{% url 'index' %}" 
+     hx-trigger="none" 
+     hx-swap="outerHTML"
+     class="d-sm-flex flex-column col-sm-6 me-5 mt-4 mb-5">
+<div class="card pb-2">
+   <div class="card-header">
+       Energy costs this month
+   </div>
+   <h5 class="card-title ps-2 pt-2">Total</h5>
+   <div class="px-2">
+       <div class="progress">
+           <div id="pball" class="progress-bar bg-success" role="progressbar" style="width: 100%">£{{month_total}}</div>
+       </div>
+   </div>
+   <h5 class="card-title ps-2 pt-2">Electricity</h5>
+   <div class="px-2">
+       <div class="progress">
+           <div id="pbelec" class="progress-bar bg-danger" role="progressbar" style="width: {{month_elec_pc}}%">£{{month_elec}}</div>
+       </div>
+   </div>
+   <h5 class="card-title ps-2 pt-2">Gas</h5>
+   <div class="px-2">
+       <div class="progress">
+           <div id="pbgas" class="progress-bar bg-info" role="progressbar" style="width: {{month_gas_pc}}%">£{{month_gas}}</div>
+       </div>
+   </div>
+</div>
+</div>
